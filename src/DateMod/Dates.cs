@@ -18,5 +18,10 @@ namespace DateMod
         {
             return date.DayOfWeek.ToString();
         }
+
+        public static DateTime AddWeeks(this DateTime date, int count)
+        {
+            return date.AddDays(7*count);
+        }
     }
 }

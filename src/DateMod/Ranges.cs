@@ -14,5 +14,33 @@ namespace DateMod
                 EndDate = new DateTime(date.Year, date.Month, date.Day + 1)
             };
         }
+
+        public static DateRange AddDays(this DateRange range, int count)
+        {
+            range.StartDate = range.StartDate.AddDays(count);
+            range.EndDate = range.EndDate.AddDays(count);
+            return range;
+        }
+
+        public static DateRange AddWeeks(this DateRange range, int count)
+        {
+            range.StartDate = range.StartDate.AddDays(7*count);
+            range.EndDate = range.EndDate.AddDays(7*count);
+            return range;
+        }
+
+        public static DateRange AddMonths(this DateRange range, int count)
+        {
+            range.StartDate = range.StartDate.AddMonths(count);
+            range.EndDate = range.EndDate.AddMonths(count);
+            return range;
+        }
+
+        public static DateRange AddYears(this DateRange range, int count)
+        {
+            range.StartDate = range.StartDate.AddYears(1);
+            range.EndDate = range.EndDate.AddYears(1);
+            return range;
+        }
     }
 }

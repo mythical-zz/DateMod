@@ -32,5 +32,14 @@ namespace DateMod.Tests
 
             Assert.That(today, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void AddWeeksToTodayReturnsTodayNextWeek()
+        {
+            var nextWeek = Get.Today().AddWeeks(1).ToShortDateString();
+            var expected = DateTime.Now.AddDays(7).ToShortDateString();
+
+            Assert.That(nextWeek, Is.EqualTo(expected));
+        }
     }
 }
