@@ -7,11 +7,57 @@ namespace DateMod.Tests
     public class RangeTests
     {
         [Test]
+        public void RangeReturnsDateRange()
+        {
+            var range = Get.Today().Range();
+
+            Assert.That(range, Is.InstanceOf<DateRange>());
+        }
+
+        [Test]
+        public void RangeDefaultsToToday()
+        {
+            var range = new DateTime().Range();
+            var today = Get.Today();
+
+            Assert.That(AreEqual(range, today), Is.True);
+        }
+
+        [Test]
+        public void TodayRangeStartsAtMidnightToday()
+        {
+            var range = Get.Today().Range();
+            var today = Get.Today();
+            var expected = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
+
+            Assert.That(range.StartDate, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void TodayRangeEndsLastSecondToday()
+        {
+            var range = Get.Today().Range();
+            var today = Get.Today();
+            var expected = new DateTime(today.Year, today.Month, today.Day, 23, 59, 59);
+
+            Assert.That(range.EndDate, Is.EqualTo(expected));
+        }
+
+        [Test]
         public void QueryReturnsDateRange()
         {
             var today = Get.Today().Query();
 
             Assert.That(today, Is.InstanceOf<DateRange>());
+        }
+
+        [Test]
+        public void QueryDefaultsToToday()
+        {
+            var query = new DateTime().Query();
+            var today = Get.Today();
+
+            Assert.That(AreEqual(query, today, isRange: false), Is.True);
         }
 
         [Test]
@@ -132,6 +178,18 @@ namespace DateMod.Tests
             var expected = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
 
             Assert.That(nextYear.EndDate, Is.EqualTo(expected));
+        }
+
+        // Utilities
+        private bool AreEqual(DateRange range, DateTime date, bool isRange = true)
+        {
+            var start = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
+            var end =
+                isRange
+                    ? new DateTime(date.Year, date.Month, date.Day, 23, 59, 59)
+                    : new DateTime(date.Year, date.Month, date.Day + 1, 0, 0, 0);
+
+            return (range.StartDate == start && range.EndDate == end);
         }
     }
 }
