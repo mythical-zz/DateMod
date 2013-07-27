@@ -64,7 +64,7 @@ namespace DateMod.Tests
         }
 
         [Test]
-        public void AddDaysToRangeAddsDayToStartDate()
+        public void AddDaysToQueryAddsDayToStartDate()
         {
             var tomorrow = Get.Today().Query().AddDays(1);
             var now = DateTime.Now.AddDays(1);
@@ -74,7 +74,7 @@ namespace DateMod.Tests
         }
 
         [Test]
-        public void AddDaysToRangeAddsDayToEndDate()
+        public void AddDaysToQueryAddsDayToEndDate()
         {
             var tomorrow = Get.Today().Query().AddDays(1);
             var now = DateTime.Now.AddDays(1);
@@ -84,7 +84,7 @@ namespace DateMod.Tests
         }
 
         [Test]
-        public void AddWeeksToRangeAddsWeekToStartDate()
+        public void AddWeeksToQueryAddsWeekToStartDate()
         {
             var nextWeek = Get.Today().Query().AddWeeks(1);
             var now = DateTime.Now.AddDays(7);
@@ -94,17 +94,17 @@ namespace DateMod.Tests
         }
 
         [Test]
-        public void AddWeeksToRangeAddsWeekToEndDate()
+        public void AddWeeksToQueryAddsWeekToEndDate()
         {
             var nextWeek = Get.Today().Query().AddWeeks(1);
-            var now = DateTime.Now.AddDays(7);
-            var expected = new DateTime(now.Year, now.Month, now.Day + 1, 0, 0, 0);
+            var now = DateTime.Now.AddDays(8);
+            var expected = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
 
             Assert.That(nextWeek.EndDate, Is.EqualTo(expected));
         }
 
         [Test]
-        public void AddMonthsToRangeAddsMonthToStartDate()
+        public void AddMonthsToQueryAddsMonthToStartDate()
         {
             var nextMonth = Get.Today().Query().AddMonths(1);
             var now = DateTime.Now.AddMonths(1);
@@ -114,7 +114,7 @@ namespace DateMod.Tests
         }
 
         [Test]
-        public void AddMonthsToRangeAddsMonthToEndDate()
+        public void AddMonthsToQueryAddsMonthToEndDate()
         {
             var nextMonth = Get.Today().Query().AddMonths(1);
             var now = DateTime.Now.AddMonths(1).AddDays(1);
@@ -124,7 +124,7 @@ namespace DateMod.Tests
         }
 
         [Test]
-        public void AddYearsToRangeAddsYearToStartDate()
+        public void AddYearsToQueryAddsYearToStartDate()
         {
             var nextYear = Get.Today().Query().AddYears(1);
             var now = DateTime.Now.AddYears(1);
@@ -134,7 +134,7 @@ namespace DateMod.Tests
         }
 
         [Test]
-        public void AddYearsToRangeAddsYearToEndDate()
+        public void AddYearsToQueryAddsYearToEndDate()
         {
             var nextYear = Get.Today().Query().AddYears(1);
             var now = DateTime.Now.AddYears(1).AddDays(1);
@@ -147,7 +147,7 @@ namespace DateMod.Tests
         private bool AreEqual(DateRange range, DateTime date)
         {
             var start = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
-            var end = new DateTime(date.Year, date.Month, date.Day + 1, 0, 0, 0);
+            var end = start.AddDays(1);
 
             return (range.StartDate == start && range.EndDate == end);
         }

@@ -18,5 +18,22 @@ namespace DateMod
         {
             return Today().AddDays(-1);
         }
+
+        public static DateRange ThisWeek()
+        {
+            var today = Today();
+            var startDay = (int)today.DayOfWeek;
+            var start = new DateTime(today.Year, today.Month, today.Day);
+
+            start = start.AddDays(-(startDay - 1));
+
+            var end = start.AddDays(6).AddHours(23).AddMinutes(59).AddSeconds(59);
+
+            return new DateRange
+                {
+                    StartDate = start,
+                    EndDate = end
+                };
+        }
     }
 }
