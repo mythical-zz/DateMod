@@ -4,9 +4,15 @@ namespace DateMod
 {
     public class Get
     {
-        public static DateTime Today()
+        public static DateTime Now()
         {
             return DateTime.Now;
+        }
+
+        public static DateTime Today()
+        {
+            var today = Now();
+            return new DateTime(today.Year, today.Month, today.Day);
         }
 
         public static DateTime Tomorrow()
@@ -23,10 +29,9 @@ namespace DateMod
         {
             var today = Today();
             var startDay = (int)today.DayOfWeek;
-            var start = new DateTime(today.Year, today.Month, today.Day);
+            //var start = new DateTime(today.Year, today.Month, today.Day);
 
-            start = start.AddDays(-(startDay - 1));
-
+            var start = today.AddDays(-(startDay - 1));
             var end = start.AddDays(6).AddHours(23).AddMinutes(59).AddSeconds(59);
 
             return new DateRange

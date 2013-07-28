@@ -143,6 +143,46 @@ namespace DateMod.Tests
             Assert.That(nextYear.EndDate, Is.EqualTo(expected));
         }
 
+        [Test]
+        public void QueryOnRangeMovesEndDateToMidnightNextDay()
+        {
+            var range = Get.Today().Range();
+            var expected = range.EndDate.AddSeconds(1);
+
+            var query = range.Query();
+            Assert.That(query.EndDate, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void QueryOnRangePreservesProperStartDate()
+        {
+            var range = Get.ThisWeek();
+            var query = range.Query();
+
+            Assert.That(query.StartDate, Is.EqualTo(range.StartDate));
+        }
+
+        [Test]
+        public void QueryOnRangePreservesProperEndDate()
+        {
+            var range = Get.ThisWeek();
+            var query = Get.ThisWeek().Query();
+
+            var expected = range.EndDate.AddSeconds(1);
+
+            Assert.That(query.EndDate, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void QueryOnQueryDoesNotChangeEndDate()
+        {
+            var query = Get.Today().Query();
+            var expected = query.EndDate;
+
+            query = query.Query();
+            Assert.That(query.EndDate, Is.EqualTo(expected));
+        }
+
         // Utilities
         private bool AreEqual(DateRange range, DateTime date)
         {

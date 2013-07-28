@@ -9,8 +9,10 @@ namespace DateMod.Tests
         [Test]
         public void GetTodayReturnsToday()
         {
-            var today = Get.Today().ToShortDateString();
-            var expected = DateTime.Now.ToShortDateString();
+            var today = Get.Today();
+            var now = DateTime.Now;
+
+            var expected = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
 
             Assert.That(today, Is.EqualTo(expected));
         }

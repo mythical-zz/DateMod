@@ -26,6 +26,18 @@ namespace DateMod
             };
         }
 
+        public static DateRange Query(this DateRange date)
+        {
+            if (date.EndDate.Hour == 0 && date.EndDate.Minute == 0 && date.EndDate.Second == 0)
+            {
+                return date;
+            }
+
+            var end = date.EndDate;
+            date.EndDate = new DateTime(end.Year, end.Month, end.Day).AddDays(1);
+            return date;
+        }
+
         public static DateRange AddDays(this DateRange range, int count)
         {
             range.StartDate = range.StartDate.AddDays(count);
